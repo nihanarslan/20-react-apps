@@ -1,3 +1,9 @@
+
+![markdown-editor-screenshot](https://github.com/nihanarslan/20-react-apps/assets/9341379/a1145a6e-b0ef-4cfe-b45f-3c689839c15d)
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
