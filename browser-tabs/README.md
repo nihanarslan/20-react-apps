@@ -1,3 +1,8 @@
+![highlight_browser_Tabs2](https://github.com/nihanarslan/20-react-apps/assets/9341379/d32dcaeb-558e-4c77-9148-ca8b77c10080)
+
+![highlight_browser_Tabs](https://github.com/nihanarslan/20-react-apps/assets/9341379/29ea7af9-3c41-47d5-abb1-ef0b2a53f566)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
