@@ -1,5 +1,8 @@
 import React, { useRef, useState } from "react";
 import "./App.css";
+import useSound from 'use-sound';
+import workend from './workend.mp3';
+import workstart from './workstart.mp3';
 import { MdReplayCircleFilled } from "react-icons/md";
 import { AiFillPlayCircle, AiFillPauseCircle } from "react-icons/ai";
 
@@ -8,7 +11,10 @@ function padTime(time) {
 }
 
 function App() {
+  const [workEnd] = useSound(workend);
+  const [workStart] = useSound(workstart);
   const [title, setTitle] = useState("Let the countdown begin!!!");
+  const [currentState, setCurrentState] = useState("idle");
   const [timeLeft, setTimeLeft] = useState(25 * 60);
   const [isRunning, setIsRunning] = useState(false);
   const [background, setBackGround] = useState("#f84935");
@@ -41,7 +47,10 @@ function App() {
 
   function resetTimer() {
     clearInterval(intervalRef.current);
-
+    if(currentState.toString() === "working")
+      workEnd();
+    else
+      workStart();
     intervalRef.current = null;
     setTitle("Ready to go another round?");
     setTimeLeft(25 * 60);
@@ -50,13 +59,15 @@ function App() {
 
   function setPomodoroTimer() {
     setTitle("Let the countdown begin!!!");
-    setTimeLeft(25 * 60);
+    setCurrentState("working");
+    setTimeLeft( 25 * 60);
     setBackGround("#f84935");
     stopTimer();
   }
 
   function setShortTimer() {
     setTitle("Time for a break!");
+    setCurrentState("break");
     setTimeLeft(5 * 60);
     setBackGround("#4A678A");
     stopTimer();
@@ -64,6 +75,7 @@ function App() {
 
   function setLongTimer() {
     setTitle("Time for a break!");
+    setCurrentState("break");
     setTimeLeft(15 * 60);
     setBackGround("#768A4A");
     stopTimer();
