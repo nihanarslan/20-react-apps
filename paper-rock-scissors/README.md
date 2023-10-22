@@ -1,3 +1,10 @@
+![image](https://github.com/nihanarslan/20-react-apps/assets/9341379/31c65ebf-6c51-4f4a-a105-de8fe9c59119)
+![image](https://github.com/nihanarslan/20-react-apps/assets/9341379/d1688578-1d5d-4389-9985-7df3dcebfd97)
+![image](https://github.com/nihanarslan/20-react-apps/assets/9341379/ee8e3261-afb6-4bcd-9178-e65f665c29d7)
+![image](https://github.com/nihanarslan/20-react-apps/assets/9341379/48716952-9417-46ff-9c73-c1070b6901f8)
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
