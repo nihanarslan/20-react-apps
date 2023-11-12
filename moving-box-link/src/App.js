@@ -23,15 +23,34 @@ export default function App() {
     context.fillRect(x, y, 100, 100);
   }, [x, y]);
 
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    function handleKeyDown(e) {
+      if (e.key === "ArrowUp") move("up");
+      if (e.key === "ArrowLeft") move("left");
+      if (e.key === "ArrowDown") move("down");
+      if (e.key === "ArrowRight") move("right");
+    }
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  function move(direction) {
+    if (direction === "up") setY((y) => y - 20);
+    if (direction === "left") setX((x) => x - 20);
+    if (direction === "down") setY((y) => y + 20);
+    if (direction === "right") setX((x) => x + 20);
+  }
+
   return (
     <div className="app">
       <canvas ref={canvasRef} />
 
       <div className="arrows">
-        <button onClick={() => setY((y) => y - 20)}>Up</button>
-        <button onClick={() => setX((x) => x - 20)}>Left</button>
-        <button onClick={() => setY((y) => y + 20)}>Down</button>
-        <button onClick={() => setX((x) => x + 20)}>Right</button>
+        <button onClick={() => move("up")}>Up</button>
+        <button onClick={() => move("left")}>Left</button>
+        <button onClick={() => move("down")}>Down</button>
+        <button onClick={() => move("right")}>Right</button>
       </div>
 
       <div className="images">
