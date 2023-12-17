@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import "./App.css";
+import useMovement from "./useMovement";
 
 export default function App() {
   const canvasRef = useRef(null);
@@ -7,24 +8,19 @@ export default function App() {
   const linkRightRef = useRef(null);
   const linkUpRef = useRef(null);
   const linkLeftRef = useRef(null);
-  const [x, setX] = useState(0);
-  const [y, setY] = useState(0);
-  const [direction, setDirection] = useState("down");
+  const { x, y, direction, move } = useMovement();
 
   //set the height and width of the canvas
   useEffect(() => {
     const context = canvasRef.current.getContext("2d");
-
     context.canvas.height = window.innerHeight;
     context.canvas.width = window.innerWidth;
-
-    context.fillRect(x, y, 100, 100);
   }, []);
 
   //move the box in case x or y changed
   useEffect(() => {
     const context = canvasRef.current.getContext("2d");
-    context.clearRect(0, 0, window.innerHeight, window.innerWidth);
+    context.clearRect(0, 0, window.innerWidth, window.innerHeight);
     // context.fillRect(x, y, 100, 100);
 
     let theLinkRef;
@@ -35,26 +31,6 @@ export default function App() {
 
     context.drawImage(theLinkRef.current, x, y);
   }, [x, y]);
-
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-    function handleKeyDown(e) {
-      if (e.key === "ArrowUp") move("up");
-      if (e.key === "ArrowLeft") move("left");
-      if (e.key === "ArrowDown") move("down");
-      if (e.key === "ArrowRight") move("right");
-    }
-
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
-
-  function move(dir) {
-    setDirection(dir);
-    if (dir === "up") setY((y) => y - 20);
-    if (dir === "left") setX((x) => x - 20);
-    if (dir === "down") setY((y) => y + 20);
-    if (dir === "right") setX((x) => x + 20);
-  }
 
   return (
     <div className="app">
