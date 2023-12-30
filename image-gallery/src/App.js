@@ -7,17 +7,33 @@ const accessKey = process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
 export default function App() {
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     getPhotos();
   }, [page]);
 
   function getPhotos() {
-    fetch(`https://api.unsplash.com/photos?client_id=${accessKey}&page=${page}`)
+    let apiUrl = `https://api.unsplash.com/photos?`;
+    if (query) apiUrl = `https://api.unsplash.com/search/photos?query=${query}`;
+
+    apiUrl += `&page=${page}`;
+    apiUrl += `&client_id=${accessKey}`;
+
+    fetch(apiUrl)
       .then((res) => res.json())
       .then((data) => {
-        setImages((images) => [...images, ...data]);
+        const imagesFromApi = data.results ?? data;
+        if (page === 1) setImages(imagesFromApi);
+        setImages((images) => [...images, ...imagesFromApi]);
       });
+  }
+
+  function searchPhotos(e) {
+    e.preventDefault();
+
+    setPage(1);
+    getPhotos();
   }
 
   if (!accessKey) {
@@ -32,8 +48,13 @@ export default function App() {
     <div className="app">
       <h1>Unsplash Image Gallery!</h1>
 
-      <form>
-        <input type="text" placeholder="Search Unsplash..." />
+      <form onSubmit={searchPhotos}>
+        <input
+          type="text"
+          placeholder="Search Unsplash..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
         <button>Search</button>
       </form>
 
